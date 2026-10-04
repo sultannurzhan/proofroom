@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coordination/
+test-results/
+playwright-report/
+.env*
+*.local
+*.log
+*.tsbuildinfo
+coverage/
+.DS_Store
+AGENTS.md
