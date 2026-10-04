@@ -35,6 +35,16 @@ test('full edit, pin, flip, resize, undo/redo, save, reload, export and reopen j
 }) => {
   await page.goto('./');
   await ready(page);
+  await expect(page.getByLabel('Style preset', { exact: true })).toHaveValue(
+    'Signal',
+  );
+  await expect(specimen(page).locator('h1')).toHaveCSS(
+    'font-family',
+    /Manrope/,
+  );
+  await page
+    .getByLabel('Style preset', { exact: true })
+    .selectOption('Editorial');
   await page.getByRole('button', { name: 'Content', exact: true }).click();
   const title = 'A longer fieldnote about café tables & thoughtful repairs.';
   await page
@@ -83,6 +93,9 @@ test('full edit, pin, flip, resize, undo/redo, save, reload, export and reopen j
   await ready(page);
   await page.reload();
   await ready(page);
+  await expect(page.getByLabel('Style preset', { exact: true })).toHaveValue(
+    'Clear',
+  );
   await expect(specimen(page).locator('h1')).toHaveText(title + ' Shared.');
   const zip = await downloadZip(page);
   expect(Object.keys(zip)).toContain('signup-error.html');
@@ -151,7 +164,7 @@ test('content loading is explicit, presets keep copy, keyboard selection and his
   await expect(field).toBeFocused();
   await expect(specimen(page).locator('h1')).toHaveCSS(
     'font-family',
-    /Source Serif 4/,
+    /Manrope/,
   );
   await page.getByRole('button', { name: 'Type', exact: true }).click();
   await specimen(page).locator('.pr-caption').first().click();
@@ -217,6 +230,10 @@ test('font failure is visible; selecting a working family recovers', async ({
 }) => {
   await page.route('**/*source-serif-4*.woff2', (route) => route.abort());
   await page.goto('./');
+  await ready(page);
+  await page
+    .getByLabel('Display font', { exact: true })
+    .selectOption('source-serif-4');
   await expect(page.getByText(/Font failed:/)).toBeVisible();
   await page
     .getByLabel('Display font', { exact: true })

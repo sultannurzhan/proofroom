@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import {
   fonts,
   roles,
@@ -16,6 +16,7 @@ type Props = {
   error: boolean;
   width: number;
   onRole: (r: Role) => void;
+  onFontState: (state: string) => void;
 };
 const roleClass = (r: Role) => `pr-${r === 'section' ? 'section-font' : r}`;
 export function Preview({
@@ -25,9 +26,11 @@ export function Preview({
   error,
   width,
   onRole,
+  onFontState,
 }: Props) {
   const frame = useRef<HTMLIFrameElement>(null);
-  const [fontState, setFontState] = useState('Loading fonts…');
+  const fontStateRef = useRef(onFontState);
+  fontStateRef.current = onFontState;
   const lastComposition = useRef(composition);
   const generation = useRef(0);
   const savedContext = useRef({ id: 'navigation', offset: 0, wasTop: true });
@@ -71,7 +74,7 @@ export function Preview({
     }
     savedContext.current = context;
     lastComposition.current = composition;
-    setFontState('Loading fonts…');
+    fontStateRef.current('Loading fonts…');
     const load = latestOnly(
       async (doc: Document) => {
         await Promise.all(
@@ -85,7 +88,7 @@ export function Preview({
       },
       (state, err) => {
         if (serial !== generation.current) return;
-        setFontState(
+        fontStateRef.current(
           state === 'ready'
             ? 'Fonts ready'
             : state === 'error'
@@ -132,20 +135,11 @@ export function Preview({
     };
   }, [html, composition, styles.display, styles.text]);
   return (
-    <>
-      <div
-        className={`font-status ${fontState.startsWith('Font failed') ? 'danger' : ''}`}
-        role="status"
-        aria-live="polite"
-      >
-        {fontState}
-      </div>
-      <iframe
-        ref={frame}
-        title="Proofroom specimen"
-        sandbox="allow-same-origin"
-        style={{ width, minWidth: width }}
-      />
-    </>
+    <iframe
+      ref={frame}
+      title="Proofroom specimen"
+      sandbox="allow-same-origin"
+      style={{ width, minWidth: width }}
+    />
   );
 }

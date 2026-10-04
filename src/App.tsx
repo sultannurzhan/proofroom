@@ -142,6 +142,7 @@ export function App() {
   const [saveState, setSaveState] = useState<SaveState>('saving');
   const [saveError, setSaveError] = useState('');
   const [message, setMessage] = useState('');
+  const [fontState, setFontState] = useState('Loading fonts…');
   const [active, setActive] = useState<'working' | 'reference'>('working');
   const [composition, setComposition] = useState<Composition>('overview');
   const [width, setWidth] = useState(768);
@@ -319,13 +320,13 @@ export function App() {
       <header className="studio-header">
         <div className="identity">
           <span className="mark" aria-hidden="true">
-            p<span>r</span>
+            P<span>R</span>
           </span>
           <div>
             <strong>
               Proofroom<span className="version">01</span>
             </strong>
-            <small>Words first. Direction next.</small>
+            <small>YOUR WORDS. YOUR CALL.</small>
           </div>
         </div>
         <div className="project-identity">
@@ -478,6 +479,13 @@ export function App() {
               {width} PX · {composition.toUpperCase()}
             </span>
           </div>
+          <div
+            className={`font-status ${fontState.startsWith('Font failed') ? 'danger' : ''}`}
+            role="status"
+            aria-live="polite"
+          >
+            {fontState}
+          </div>
           <div className="canvas-scroll">
             <div className="specimen-wrap" style={{ width }}>
               <Preview
@@ -486,6 +494,7 @@ export function App() {
                 composition={composition}
                 error={showError}
                 width={width}
+                onFontState={setFontState}
                 onRole={(r) => {
                   setRole(r);
                   setTab('Type');

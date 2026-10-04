@@ -229,7 +229,57 @@ export const editorial: Styles = {
     error: '#ad302a',
   },
 };
+export const signal: Styles = {
+  ...clone(editorial),
+  name: 'Signal',
+  display: 'manrope',
+  text: 'source-sans-3',
+  optical: false,
+  roles: {
+    ...clone(editorial.roles),
+    title: {
+      slot: 'display',
+      size: 64,
+      weight: 800,
+      lineHeight: 1.04,
+      tracking: -0.045,
+    },
+    section: {
+      slot: 'display',
+      size: 28,
+      weight: 700,
+      lineHeight: 1.18,
+      tracking: -0.025,
+    },
+    label: {
+      slot: 'text',
+      size: 14,
+      weight: 700,
+      lineHeight: 1.35,
+      tracking: 0.015,
+    },
+    button: {
+      slot: 'text',
+      size: 16,
+      weight: 700,
+      lineHeight: 1.35,
+      tracking: 0,
+    },
+  },
+  spacing: { readingWidth: 920, section: 44, stack: 18, padding: 32 },
+  colors: {
+    background: '#ffffff',
+    surface: '#ffe500',
+    text: '#251139',
+    muted: '#655976',
+    accent: '#6d35ff',
+    onAccent: '#ffffff',
+    border: '#b4a3cf',
+    error: '#ad2352',
+  },
+};
 export const presets: Record<string, Styles> = {
+  Signal: signal,
   Editorial: editorial,
   Clear: {
     ...clone(editorial),
@@ -289,7 +339,7 @@ export function createProject(content: Content): Project {
     id: crypto.randomUUID(),
     name: 'Untitled proof',
     content: clone(content),
-    working: clone(editorial),
+    working: clone(signal),
     pinned: null,
     fontReferences: [
       'source-sans-3@5.3.0',

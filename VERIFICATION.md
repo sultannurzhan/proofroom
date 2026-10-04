@@ -5,7 +5,7 @@ Verified on 2026-10-05. This records observed checks, not an accessibility certi
 | Check | Result |
 | --- | --- |
 | TypeScript and Vite production build | Passed |
-| Vitest unit tests | 23 passed |
+| Vitest unit tests | 24 passed |
 | Playwright browser tests | 9 passed in Chromium |
 | Independent model diagnostics | 9 passed |
 | Dependency audit after the final dependency change | 0 known vulnerabilities |
@@ -18,6 +18,12 @@ The automated journey edits content, changes styles, pins and flips directions, 
 Unit tests cover strict schemas and value limits, Unicode round trips, unsafe imported values, escaped HTML and attributes, deterministic generation, logical history grouping, isolated duplication, serialized/coalesced saves across project IDs, persistence failure/retry, stale font requests and import-ID collisions. A differing imported project with an existing ID receives a new ID so the existing saved project is retained.
 
 Both Overview and Signup were tested at 360, 517, 768 and 1280 CSS pixels. Checks include 200% text enlargement combined with line-height, letter-spacing, word-spacing and paragraph-spacing overrides; long unbroken form labels; a narrow 390px studio; visible keyboard focus; and reduced motion. Independent browser review also exercised an intermediate 543px specimen. Native scrollbar widths can reduce the document's client width within the selected iframe width; no screenshot scaling is used.
+
+## Purple and yellow design update
+
+The Signal update was checked in the desktop and narrow mobile studio. Saved styles and copy remain unchanged after reload; new projects use Signal, and existing projects can select it explicitly. Keyboard focus remains visible against the dark header and white inspector. Font status stays outside the horizontally scrolling specimen, including a 1280px specimen viewed in a 390px studio.
+
+The regression suite additionally verifies that the new default is cloned independently and that previously saved Editorial working styles and Warm pinned styles round-trip without rewriting.
 
 ## Standalone export parity
 

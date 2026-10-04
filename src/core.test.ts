@@ -26,6 +26,18 @@ const deferred = () => {
   return { promise, resolve, reject };
 };
 describe('versioned document boundaries', () => {
+  it('uses Signal for fresh projects without rewriting legacy directions or content', () => {
+    const legacy = make();
+    legacy.working = clone(presets.Editorial);
+    legacy.pinned = clone(presets.Warm);
+    legacy.content.title = 'Previously saved words';
+    const fresh = make();
+    expect(fresh.working).toEqual(presets.Signal);
+    fresh.working.roles.title.size = 70;
+    expect(presets.Signal.roles.title.size).toBe(64);
+    expect(parseProject(JSON.stringify(legacy))).toEqual(legacy);
+    expect(duplicate(legacy).working).toEqual(presets.Editorial);
+  });
   it('round trips all original content packs including Unicode', () => {
     for (const content of Object.values(packs)) {
       const p = createProject(content);

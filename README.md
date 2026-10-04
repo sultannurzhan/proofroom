@@ -28,7 +28,7 @@ npm run preview
 4. Change the working styles and flip between directions. Use Overview or Signup and a real responsive viewport, including custom intermediate widths.
 5. Keep an optional decision note, duplicate a project, or export the project JSON and implementation ZIP.
 
-The studio's neutral appearance is independent of the edited theme. Typography uses display/text family slots and six semantic roles: title, section heading, body, caption, label and button.
+The studio pairs an aubergine header, vivid purple controls and bright yellow accents with a cool desk and white inspector. Its appearance stays independent of the edited theme. New proofs start with Signal, a bold sans-serif direction with purple ink and a yellow detail surface; existing saved projects retain their chosen styles. Signal can also be selected explicitly from the style presets. Typography uses display/text family slots and six semantic roles: title, section heading, body, caption, label and button.
 
 ## Local data and imports
 
